@@ -2,40 +2,20 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { NewsCard } from "@/components/shared/NewsCard"
 import { Button } from "@/components/ui/button"
-
-const newsItems = [
-  {
-    title: "Music Writing Camp Returns This Summer",
-    excerpt:
-      "Join us for an intensive week of songwriting, production, and collaboration with industry professionals. Limited spots available for ages 16-25.",
-    date: "January 15, 2026",
-    image:
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80",
-    href: "/news/music-writing-camp-2026",
-    featured: true,
-    tag: "Featured",
-  },
-  {
-    title: "New Partnership with Sony Music UK",
-    excerpt:
-      "Exciting news as we announce our new industry partnership bringing more opportunities to Medway creatives.",
-    date: "January 10, 2026",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80",
-    href: "/news/sony-partnership",
-  },
-  {
-    title: "Spring Programme Applications Open",
-    excerpt:
-      "Applications for our Spring cohort are now open. Spaces are limited across all four programmes.",
-    date: "January 5, 2026",
-    image:
-      "https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?w=600&q=80",
-    href: "/news/spring-applications",
-  },
-]
+import { newsArticles } from "@/data/news"
 
 export function NewsGrid() {
+  // Get the first 3 articles for the homepage
+  const latestNews = newsArticles.slice(0, 3).map((article) => ({
+    title: article.title,
+    excerpt: article.excerpt,
+    date: article.date,
+    image: article.image,
+    href: `/news/${article.id}`,
+    featured: article.featured,
+    tag: article.featured ? "Featured" : undefined,
+  }))
+
   return (
     <section className="py-24 lg:py-32 bg-tmrw-white">
       <div className="container mx-auto px-4 lg:px-6">
@@ -60,7 +40,7 @@ export function NewsGrid() {
 
         {/* News Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {newsItems.map((item) => (
+          {latestNews.map((item) => (
             <NewsCard key={item.title} {...item} />
           ))}
 
