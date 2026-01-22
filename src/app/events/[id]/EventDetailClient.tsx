@@ -284,7 +284,7 @@ export function EventDetailClient({ event }: EventDetailClientProps) {
             Check out our other upcoming events or join our mailing list to stay updated.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild variant="outline" className="font-accent font-bold">
+            <Button asChild variant="outline-dark" className="font-accent font-bold">
               <Link href="/events">View All Events</Link>
             </Button>
             <Button asChild className="font-accent font-bold">
