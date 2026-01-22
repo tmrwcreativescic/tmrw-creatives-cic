@@ -6,94 +6,20 @@ import { PageHero } from "@/components/shared/PageHero"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { events, getFeaturedEvents } from "@/data/events"
 
 export const metadata: Metadata = {
   title: "Events | TMRW Creatives CIC",
   description: "Upcoming events, workshops, showcases, and networking opportunities for young creatives in Medway.",
 }
 
-const upcomingEvents = [
-  {
-    id: 1,
-    title: "Spring Cohort Open Day",
-    date: "February 15, 2026",
-    time: "2:00 PM - 5:00 PM",
-    location: "TMRW HQ, Chatham",
-    description: "Meet the team, tour our facilities, and learn about our Spring programmes. Perfect for anyone considering joining TMRW.",
-    type: "Open Day",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
-    spots: 50,
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "A&R Listening Session",
-    date: "February 22, 2026",
-    time: "6:00 PM - 9:00 PM",
-    location: "TMRW HQ, Chatham",
-    description: "Submit your tracks for feedback from active A&Rs. Get honest industry feedback on your music.",
-    type: "Industry Event",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80",
-    spots: 20,
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Songwriting Workshop: Hooks That Hit",
-    date: "March 1, 2026",
-    time: "11:00 AM - 3:00 PM",
-    location: "TMRW HQ, Chatham",
-    description: "Intensive workshop on writing memorable hooks with Grammy-nominated songwriter Jamie Reynolds.",
-    type: "Workshop",
-    image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=80",
-    spots: 15,
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "TMRW Showcase: Fresh Faces",
-    date: "March 15, 2026",
-    time: "7:00 PM - 11:00 PM",
-    location: "The Tap & Tin, Chatham",
-    description: "Live performances from TMRW creatives. Industry guests, networking, and great music.",
-    type: "Showcase",
-    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80",
-    spots: 100,
-    featured: true,
-  },
-  {
-    id: 5,
-    title: "Social Media Masterclass",
-    date: "March 20, 2026",
-    time: "6:00 PM - 8:00 PM",
-    location: "Online via Zoom",
-    description: "Learn to grow your audience authentically with social media strategist Priya Patel.",
-    type: "Masterclass",
-    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80",
-    spots: 30,
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Industry Mixer: Meet The Managers",
-    date: "March 28, 2026",
-    time: "6:00 PM - 9:00 PM",
-    location: "TMRW HQ, Chatham",
-    description: "Networking event with artist managers. Learn what they look for and make valuable connections.",
-    type: "Networking",
-    image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=600&q=80",
-    spots: 25,
-    featured: false,
-  },
-]
-
 const eventTypes = [
-  { name: "All Events", count: upcomingEvents.length },
-  { name: "Workshops", count: 1 },
-  { name: "Showcases", count: 1 },
-  { name: "Networking", count: 2 },
-  { name: "Masterclasses", count: 1 },
-  { name: "Open Days", count: 1 },
+  { name: "All Events", count: events.length },
+  { name: "Workshops", count: events.filter((e) => e.type === "Workshop").length },
+  { name: "Showcases", count: events.filter((e) => e.type === "Showcase").length },
+  { name: "Networking", count: events.filter((e) => e.type === "Networking" || e.type === "Industry Event").length },
+  { name: "Masterclasses", count: events.filter((e) => e.type === "Masterclass").length },
+  { name: "Open Days", count: events.filter((e) => e.type === "Open Day").length },
 ]
 
 function getTypeColor(type: string): "purple" | "magenta" | "cyan" | "dark" {
@@ -112,8 +38,8 @@ function getTypeColor(type: string): "purple" | "magenta" | "cyan" | "dark" {
 }
 
 export default function EventsPage() {
-  const featuredEvents = upcomingEvents.filter((e) => e.featured)
-  const regularEvents = upcomingEvents.filter((e) => !e.featured)
+  const featuredEvents = getFeaturedEvents()
+  const regularEvents = events.filter((e) => !e.featured)
 
   return (
     <>
@@ -136,61 +62,62 @@ export default function EventsPage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {featuredEvents.map((event) => (
-              <Card
+              <Link
                 key={event.id}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all"
+                href={`/events/${event.id}`}
+                className="group block"
               >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <Badge
-                    variant={getTypeColor(event.type)}
-                    className="absolute top-4 left-4 font-accent"
-                  >
-                    {event.type}
-                  </Badge>
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <h3 className="font-heading text-2xl font-bold uppercase mb-2">
-                      {event.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-4 text-sm">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {event.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {event.time}
-                      </span>
+                <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all h-full">
+                  <div className="relative h-64 overflow-hidden">
+                    <Image
+                      src={event.image}
+                      alt={event.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <Badge
+                      variant={getTypeColor(event.type)}
+                      className="absolute top-4 left-4 font-accent"
+                    >
+                      {event.type}
+                    </Badge>
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <h3 className="font-heading text-2xl font-bold uppercase mb-2 group-hover:text-tmrw-cyan transition-colors">
+                        {event.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-4 text-sm">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {event.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {event.time}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
-                    <MapPin className="w-4 h-4" />
-                    {event.location}
-                  </div>
-                  <p className="font-body text-gray-600 mb-4">
-                    {event.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-sm text-gray-500">
-                      <Users className="w-4 h-4" />
-                      {event.spots} spots
-                    </span>
-                    <Button asChild className="font-accent font-bold">
-                      <Link href={`/events/${event.id}`}>
-                        Register <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
+                      <MapPin className="w-4 h-4" />
+                      {event.location}
+                    </div>
+                    <p className="font-body text-gray-600 mb-4">
+                      {event.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-sm text-gray-500">
+                        <Users className="w-4 h-4" />
+                        {event.spots} spots
+                      </span>
+                      <span className="font-accent font-bold text-tmrw-purple inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                        View Event <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
@@ -228,55 +155,55 @@ export default function EventsPage() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 {regularEvents.map((event) => (
-                  <Card
+                  <Link
                     key={event.id}
-                    className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                    href={`/events/${event.id}`}
+                    className="group block"
                   >
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <Badge
-                        variant={getTypeColor(event.type)}
-                        className="absolute top-4 left-4 font-accent"
-                      >
-                        {event.type}
-                      </Badge>
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="font-heading text-xl font-bold uppercase text-tmrw-black mb-2 group-hover:text-tmrw-purple transition-colors">
-                        {event.title}
-                      </h3>
-                      <div className="space-y-2 text-sm text-gray-500 mb-4">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          {event.date} at {event.time}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" />
-                          {event.location}
-                        </div>
-                      </div>
-                      <p className="font-body text-gray-600 text-sm mb-4 line-clamp-2">
-                        {event.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1 text-sm text-gray-500">
-                          <Users className="w-4 h-4" />
-                          {event.spots} spots
-                        </span>
-                        <Link
-                          href={`/events/${event.id}`}
-                          className="font-accent font-bold text-sm text-tmrw-purple hover:underline inline-flex items-center gap-1"
+                    <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 h-full">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={event.image}
+                          alt={event.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <Badge
+                          variant={getTypeColor(event.type)}
+                          className="absolute top-4 left-4 font-accent"
                         >
-                          Register <ArrowRight className="w-4 h-4" />
-                        </Link>
+                          {event.type}
+                        </Badge>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <CardContent className="p-6">
+                        <h3 className="font-heading text-xl font-bold uppercase text-tmrw-black mb-2 group-hover:text-tmrw-purple transition-colors">
+                          {event.title}
+                        </h3>
+                        <div className="space-y-2 text-sm text-gray-500 mb-4">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
+                            {event.date} at {event.time}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4" />
+                            {event.location}
+                          </div>
+                        </div>
+                        <p className="font-body text-gray-600 text-sm mb-4 line-clamp-2">
+                          {event.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="flex items-center gap-1 text-sm text-gray-500">
+                            <Users className="w-4 h-4" />
+                            {event.spots} spots
+                          </span>
+                          <span className="font-accent font-bold text-sm text-tmrw-purple inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                            View Event <ArrowRight className="w-4 h-4" />
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
