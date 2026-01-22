@@ -36,9 +36,10 @@ export function Hero() {
           </h1>
 
           <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-xl font-body leading-relaxed">
-            Real skills. Real connections. Real pathways into music. TMRW
-            Creatives connects young people aged 12–30 with the industry access
-            they need to build sustainable creative careers.
+            Real skills. Real connections. Real pathways into music.
+            <br />
+            TMRW Creatives connects young people aged 12–30 with the industry
+            access they need to build sustainable creative careers.
           </p>
 
           <div className="flex flex-wrap gap-4">
