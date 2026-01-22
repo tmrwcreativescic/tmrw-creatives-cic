@@ -189,8 +189,9 @@ export function EventDetailClient({ event }: EventDetailClientProps) {
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
+              <div className="sticky top-24 space-y-8">
               {/* Registration Card */}
-              <Card className="border-0 shadow-lg sticky top-24 mb-8">
+              <Card className="border-0 shadow-lg">
                 <CardContent className="p-6">
                   <h3 className="font-heading text-lg font-bold uppercase text-tmrw-black mb-4">
                     Event Details
@@ -267,6 +268,7 @@ export function EventDetailClient({ event }: EventDetailClientProps) {
                   </CardContent>
                 </Card>
               )}
+              </div>
             </div>
           </div>
         </div>
