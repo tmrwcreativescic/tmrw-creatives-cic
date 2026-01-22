@@ -6,94 +6,12 @@ import { PageHero } from "@/components/shared/PageHero"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { newsArticles, getFeaturedArticles } from "@/data/news"
 
 export const metadata: Metadata = {
   title: "News | TMRW Creatives CIC",
   description: "Latest news, stories, and updates from TMRW Creatives and our community of young creatives in Medway.",
 }
-
-const newsArticles = [
-  {
-    id: 1,
-    title: "Music Writing Camp Returns This Summer",
-    excerpt: "Join us for an intensive week of songwriting, production, and collaboration with industry professionals. Applications open February 1st for our biggest writing camp yet.",
-    date: "January 15, 2026",
-    author: "TMRW Team",
-    category: "Announcement",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "TMRW Creative Lands Major Sync Placement",
-    excerpt: "CREATE programme graduate Maya Chen has secured her first major sync placement with a national TV campaign. We caught up with her to discuss the journey.",
-    date: "January 12, 2026",
-    author: "Jordan Mitchell",
-    category: "Success Story",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "New Partnership with Sony Music UK Announced",
-    excerpt: "We're excited to announce a new industry partnership that will bring exclusive opportunities to our community, including mentorship programmes and A&R access.",
-    date: "January 10, 2026",
-    author: "TMRW Team",
-    category: "Partnership",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Spring Programme Applications Now Open",
-    excerpt: "Applications for our Spring cohort are now open across all four programmes. Spaces are limited, so early application is encouraged.",
-    date: "January 5, 2026",
-    author: "TMRW Team",
-    category: "Announcement",
-    image: "https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?w=800&q=80",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Year in Review: 2025 Impact Report",
-    excerpt: "Reflecting on a year of growth, impact, and community building. From 500+ creatives supported to £50k in paid opportunities, here's what we achieved together.",
-    date: "December 20, 2025",
-    author: "Jordan Mitchell",
-    category: "Report",
-    image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800&q=80",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "How Tyler Went from Bedroom Producer to Label Signing",
-    excerpt: "CONNECT programme alumni Tyler shares his journey from making beats in his bedroom to signing with an independent label in just 18 months.",
-    date: "December 15, 2025",
-    author: "Priya Sharma",
-    category: "Success Story",
-    image: "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=800&q=80",
-    featured: false,
-  },
-  {
-    id: 7,
-    title: "Building Your Brand: Lessons from the BUILD Programme",
-    excerpt: "Top takeaways from our latest BUILD cohort on personal branding, social media strategy, and standing out in a crowded market.",
-    date: "December 10, 2025",
-    author: "Aisha Williams",
-    category: "Insights",
-    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
-    featured: false,
-  },
-  {
-    id: 8,
-    title: "December Showcase Highlights",
-    excerpt: "Photos and highlights from our December showcase at The Tap & Tin. Featuring performances from 8 TMRW creatives and special industry guests.",
-    date: "December 5, 2025",
-    author: "TMRW Team",
-    category: "Event Recap",
-    image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80",
-    featured: false,
-  },
-]
 
 const categories = [
   "All",
@@ -120,7 +38,7 @@ function getCategoryColor(category: string): "purple" | "magenta" | "cyan" | "da
 }
 
 export default function NewsPage() {
-  const featuredArticles = newsArticles.filter((a) => a.featured)
+  const featuredArticles = getFeaturedArticles()
   const regularArticles = newsArticles.filter((a) => !a.featured)
 
   return (
@@ -137,53 +55,51 @@ export default function NewsPage() {
         <div className="container mx-auto px-4 lg:px-6">
           <div className="grid lg:grid-cols-2 gap-8">
             {featuredArticles.map((article, index) => (
-              <Card
+              <Link
                 key={article.id}
-                className={`group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all ${
-                  index === 0 ? "lg:row-span-2" : ""
-                }`}
+                href={`/news/${article.id}`}
+                className={`group block ${index === 0 ? "lg:row-span-2" : ""}`}
               >
-                <div className={`relative ${index === 0 ? "h-80 lg:h-full" : "h-64"} overflow-hidden`}>
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <Badge variant={getCategoryColor(article.category)} className="font-accent">
-                      {article.category}
-                    </Badge>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <div className="flex items-center gap-4 text-sm mb-3 text-gray-300">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {article.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <User className="w-4 h-4" />
-                        {article.author}
+                <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all h-full">
+                  <div className={`relative ${index === 0 ? "h-80 lg:h-full" : "h-64"} overflow-hidden`}>
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant={getCategoryColor(article.category)} className="font-accent">
+                        {article.category}
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <div className="flex items-center gap-4 text-sm mb-3 text-gray-300">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {article.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <User className="w-4 h-4" />
+                          {article.author}
+                        </span>
+                      </div>
+                      <h3 className={`font-heading font-bold uppercase mb-2 group-hover:text-tmrw-cyan transition-colors ${
+                        index === 0 ? "text-2xl lg:text-3xl" : "text-xl"
+                      }`}>
+                        {article.title}
+                      </h3>
+                      <p className="font-body text-gray-300 text-sm line-clamp-2 mb-4">
+                        {article.excerpt}
+                      </p>
+                      <span className="font-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Read More <ArrowRight className="w-4 h-4" />
                       </span>
                     </div>
-                    <h3 className={`font-heading font-bold uppercase mb-2 ${
-                      index === 0 ? "text-2xl lg:text-3xl" : "text-xl"
-                    }`}>
-                      {article.title}
-                    </h3>
-                    <p className="font-body text-gray-300 text-sm line-clamp-2 mb-4">
-                      {article.excerpt}
-                    </p>
-                    <Link
-                      href={`/news/${article.id}`}
-                      className="font-accent font-bold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all"
-                    >
-                      Read More <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
@@ -207,57 +123,57 @@ export default function NewsPage() {
           {/* Articles Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularArticles.map((article) => (
-              <Card
+              <Link
                 key={article.id}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                href={`/news/${article.id}`}
+                className="group block"
               >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <Badge
-                    variant={getCategoryColor(article.category)}
-                    className="absolute top-4 left-4 font-accent"
-                  >
-                    {article.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {article.date}
-                    </span>
-                  </div>
-                  <h3 className="font-heading text-lg font-bold uppercase text-tmrw-black mb-2 group-hover:text-tmrw-purple transition-colors line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <p className="font-body text-gray-600 text-sm line-clamp-3 mb-4">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-sm text-gray-500">
-                      <User className="w-4 h-4" />
-                      {article.author}
-                    </span>
-                    <Link
-                      href={`/news/${article.id}`}
-                      className="font-accent font-bold text-sm text-tmrw-purple hover:underline inline-flex items-center gap-1"
+                <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 h-full">
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <Badge
+                      variant={getCategoryColor(article.category)}
+                      className="absolute top-4 left-4 font-accent"
                     >
-                      Read <ArrowRight className="w-4 h-4" />
-                    </Link>
+                      {article.category}
+                    </Badge>
                   </div>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {article.date}
+                      </span>
+                    </div>
+                    <h3 className="font-heading text-lg font-bold uppercase text-tmrw-black mb-2 group-hover:text-tmrw-purple transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <p className="font-body text-gray-600 text-sm line-clamp-3 mb-4">
+                      {article.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-sm text-gray-500">
+                        <User className="w-4 h-4" />
+                        {article.author}
+                      </span>
+                      <span className="font-accent font-bold text-sm text-tmrw-purple inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read More <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
 
           {/* Load More */}
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="font-accent font-bold">
+            <Button variant="outline-dark" size="lg" className="font-accent font-bold">
               Load More Articles
             </Button>
           </div>
