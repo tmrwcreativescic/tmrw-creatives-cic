@@ -49,10 +49,10 @@ const team = [
     bio: "Former A&R at Sony Music with 10+ years in artist development.",
   },
   {
-    name: "Priya Sharma",
-    role: "Programme Manager",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
-    bio: "Youth work specialist with a passion for creative education.",
+    name: "Patrick .A",
+    role: "Marketing Director",
+    image: "/images/patrick.jpeg",
+    bio: "Marketing specialist committed to supporting emerging creatives and building sustainable pathways.",
   },
   {
     name: "Marcus Thompson",
