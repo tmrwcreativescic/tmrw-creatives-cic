@@ -50,7 +50,7 @@ const team = [
   },
   {
     name: "Patrick .A",
-    role: "Marketing Director",
+    role: "Founder & Marketing Director",
     image: "/images/patrick.jpeg",
     bio: "Marketing specialist committed to supporting emerging creatives and building sustainable pathways.",
   },
