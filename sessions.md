@@ -3,7 +3,7 @@
 ## Project Overview
 - **Project:** TMRW Creatives CIC Website
 - **Tech Stack:** Next.js 15, TypeScript, Tailwind CSS, shadcn/ui, Lucide React
-- **Live URL:** https://tmrw-creatives-cic.vercel.app
+- **Live URL:** https://tmrwcreatives.co.uk
 - **GitHub:** https://github.com/tmrwcreativescic/tmrw-creatives-cic
 
 ---
