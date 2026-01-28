@@ -55,10 +55,10 @@ const team = [
     bio: "Marketing specialist committed to supporting emerging creatives and building sustainable pathways.",
   },
   {
-    name: "Marcus Thompson",
-    role: "Industry Partnerships Lead",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
-    bio: "Music industry veteran connecting talent with opportunity.",
+    name: "Macram R.",
+    role: "Founder & Managing Director",
+    image: "/images/Macram.jpeg",
+    bio: "Creative entrepreneur bridging music, technology, and community to create access, opportunity, and sustainable pathways.",
   },
   {
     name: "Aisha Williams",
