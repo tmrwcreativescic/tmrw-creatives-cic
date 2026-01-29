@@ -258,7 +258,7 @@ export function ApplicationModal({ opportunity, isOpen, onClose }: ApplicationMo
                     <p className="font-body text-xs text-gray-500">
                       CV, demo reel, or other materials can be sent to{" "}
                       <span className="text-tmrw-purple">
-                        {opportunity.contactEmail || "opportunities@tmrwcreatives.org"}
+                        {opportunity.contactEmail || "hello@tmrwcreatives.co.uk"}
                       </span>
                     </p>
                   </div>

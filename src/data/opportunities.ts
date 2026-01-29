@@ -49,7 +49,7 @@ This is a paid opportunity with potential for ongoing collaboration on future pr
     compensation: "£150/session",
     featured: true,
     postedDate: "January 15, 2026",
-    contactEmail: "sessions@tmrwcreatives.org",
+    contactEmail: "sessions@tmrwcreatives.co.uk",
   },
   {
     id: 2,
@@ -117,7 +117,7 @@ Due to NDA requirements, the brand name will only be disclosed to shortlisted ca
     compensation: "£2,000 + sync fee",
     featured: true,
     postedDate: "January 18, 2026",
-    contactEmail: "commissions@tmrwcreatives.org",
+    contactEmail: "commissions@tmrwcreatives.co.uk",
   },
   {
     id: 4,
@@ -150,7 +150,7 @@ This is ideal for artists looking to build their live performance experience and
     compensation: "£200/show + expenses",
     featured: false,
     postedDate: "January 22, 2026",
-    contactEmail: "bookings@tmrwcreatives.org",
+    contactEmail: "bookings@tmrwcreatives.co.uk",
   },
   {
     id: 5,
@@ -183,7 +183,7 @@ This is perfect for producers who enjoy variety and want to build a steady incom
     compensation: "£75-150 per jingle",
     featured: false,
     postedDate: "January 10, 2026",
-    contactEmail: "audio@tmrwcreatives.org",
+    contactEmail: "audio@tmrwcreatives.co.uk",
   },
   {
     id: 6,
@@ -216,7 +216,7 @@ This role offers flexibility to work around other commitments while building val
     compensation: "Commission-based",
     featured: false,
     postedDate: "January 25, 2026",
-    contactEmail: "ar@tmrwcreatives.org",
+    contactEmail: "ar@tmrwcreatives.co.uk",
   },
   {
     id: 7,
@@ -249,7 +249,7 @@ This is an excellent stepping stone for anyone looking to break into music video
     compensation: "£100/day",
     featured: false,
     postedDate: "January 12, 2026",
-    contactEmail: "production@tmrwcreatives.org",
+    contactEmail: "production@tmrwcreatives.co.uk",
   },
   {
     id: 8,
@@ -282,7 +282,7 @@ This is a non-exclusive opportunity, meaning you can still release your music el
     compensation: "Varies per placement",
     featured: false,
     postedDate: "January 5, 2026",
-    contactEmail: "sync@tmrwcreatives.org",
+    contactEmail: "sync@tmrwcreatives.co.uk",
   },
 ]
 
